@@ -8,40 +8,51 @@ import { useEffect } from 'react';
 import type { QuestionsRequestParamsT } from '@/shared/schemas/params';
 import { useSearchParams } from 'next/navigation';
 import type { DifficultyT } from '@/shared/schemas/quiz';
+import { LinearProgress } from '@mui/material';
 
 export function QuizList() {
    const searchParams = useSearchParams();
    const limitRaw = searchParams.get('limit');
-   const limit = limitRaw ? Number(limitRaw) : undefined;
-
-   const category = searchParams.get('category') || undefined;
-   const difficulty = searchParams.get('difficulty') as DifficultyT;
 
    const params: QuestionsRequestParamsT = {
-      limit,
-      category,
-      difficulty,
+      limit: limitRaw ? Number(limitRaw) : undefined,
+      category: searchParams.get('category') || undefined,
+      difficulty: searchParams.get('difficulty') as DifficultyT,
    };
 
-   console.log(params);
-   const { data, isLoading, error } = useQuizQuestions(params);
+   const { isLoading, error } = useQuizQuestions(params);
 
-   const quiz = useQuizStore((state) => state.quiz);
-   const setQuiz = useQuizStore((state) => state.setQuiz);
+   const quizIds = useQuizStore((state) => state.quizIds);
+   const setActiveQuestion = useQuizStore((state) => state.setActiveQuestion);
 
    useEffect(() => {
-      setQuiz(data ?? []);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [data]);
+      if (quizIds.length > 0) {
+         setActiveQuestion({ id: quizIds[0], index: 0 });
+      }
+   }, [quizIds, setActiveQuestion]);
+
+   const activeQuestion = useQuizStore((state) => state.activeQuestion);
+   const quizLength = useQuizStore((state) => state.quizIds.length);
+   const userAnswers = useQuizStore((state) => state.userAnswers);
+   const answersCount = Object.keys(userAnswers).length;
+   const progress = (answersCount / quizLength) * 100;
+
+   const onNextQuestion = () => {
+      const nextIndex = activeQuestion.index + 1;
+      if (nextIndex < quizIds.length) {
+         setActiveQuestion({
+            id: quizIds[nextIndex],
+            index: nextIndex,
+         });
+      }
+   };
 
    if (isLoading) return <div>Loading...</div>;
    if (error) return <div>Error: {error.message}</div>;
-
    return (
       <div>
-         {quiz.map((q) => (
-            <Question key={q.id} {...q} />
-         ))}
+         <LinearProgress variant="determinate" value={progress} />
+         <Question id={activeQuestion.id} onNextQuestion={onNextQuestion} />
       </div>
    );
 }

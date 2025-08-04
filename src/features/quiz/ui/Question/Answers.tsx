@@ -6,11 +6,25 @@ import {
    RadioGroup,
 } from '@mui/material';
 
-export default function Answers(props: AnswersT) {
+type AnswersProps = AnswersT & {
+   selectedAnswer?: string;
+   onAnswerChange: (answer: string) => void;
+};
+
+export default function Answers({
+   selectedAnswer,
+   onAnswerChange,
+   ...answers
+}: AnswersProps) {
    return (
       <FormControl>
-         <RadioGroup aria-labelledby="answers-group" name="radio-buttons-group">
-            {Object.entries(props).map(([key, value]) =>
+         <RadioGroup
+            aria-labelledby="answers-group"
+            name="radio-buttons-group"
+            value={selectedAnswer || ''}
+            onChange={(e) => onAnswerChange(e.target.value)}
+         >
+            {Object.entries(answers).map(([key, value]) =>
                value ? (
                   <FormControlLabel
                      key={key}

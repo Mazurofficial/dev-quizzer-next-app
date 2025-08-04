@@ -9,6 +9,8 @@ export const AnswersSchema = z.object({
    answer_f: z.string().nullable(),
 });
 
+export type AnswerKeyT = keyof typeof AnswersSchema.shape;
+
 export type AnswersT = z.infer<typeof AnswersSchema>;
 
 const TrueFalse = z.union([z.literal('true'), z.literal('false')]);
@@ -21,6 +23,9 @@ export const CorrectAnswersSchema = z.object({
    answer_e_correct: TrueFalse,
    answer_f_correct: TrueFalse,
 });
+
+export type CorrectAnswersT = z.infer<typeof CorrectAnswersSchema>;
+export type CorrectAnswerKeyT = keyof typeof CorrectAnswersSchema.shape;
 
 export const TagSchema = z.object({
    name: z.string(),
