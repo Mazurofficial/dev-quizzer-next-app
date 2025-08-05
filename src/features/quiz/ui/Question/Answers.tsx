@@ -1,4 +1,4 @@
-import type { AnswersT } from '@/shared/schemas/quiz';
+import type { AnswerKeyT, AnswersT } from '@/shared/schemas/quiz';
 import {
    Radio,
    FormControl,
@@ -7,8 +7,8 @@ import {
 } from '@mui/material';
 
 type AnswersProps = AnswersT & {
-   selectedAnswer?: string;
-   onAnswerChange: (answer: string) => void;
+   selectedAnswer?: AnswerKeyT;
+   onAnswerChange: (answer: AnswerKeyT, label: string) => void;
 };
 
 export default function Answers({
@@ -22,7 +22,12 @@ export default function Answers({
             aria-labelledby="answers-group"
             name="radio-buttons-group"
             value={selectedAnswer || ''}
-            onChange={(e) => onAnswerChange(e.target.value)}
+            onChange={(e) =>
+               onAnswerChange(
+                  e.target.value as AnswerKeyT,
+                  answers[e.target.value as AnswerKeyT] ?? ''
+               )
+            }
          >
             {Object.entries(answers).map(([key, value]) =>
                value ? (

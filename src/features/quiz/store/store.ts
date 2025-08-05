@@ -1,17 +1,24 @@
-import type { QuizQuestionT } from '@/shared/schemas/quiz';
+import type {
+   QuizQuestionT,
+   RecordedAnswerT,
+   userAnswersT,
+} from '@/shared/schemas/quiz';
 import { create } from 'zustand';
 
 type State = {
    quizById: Record<QuizQuestionT['id'], QuizQuestionT>;
    quizIds: QuizQuestionT['id'][];
-   userAnswers: Record<QuizQuestionT['id'], string>;
+   userAnswers: userAnswersT;
    activeQuestion: { id: QuizQuestionT['id']; index: number };
 };
 
 type Action = {
    setQuiz: (quiz: QuizQuestionT[]) => void;
    setActiveQuestion: (questionId: State['activeQuestion']) => void;
-   setUserAnswer: (questionId: QuizQuestionT['id'], answer: string) => void;
+   setUserAnswer: (
+      questionId: QuizQuestionT['id'],
+      answer: RecordedAnswerT
+   ) => void;
 };
 
 export const useQuizStore = create<State & Action>((set) => ({

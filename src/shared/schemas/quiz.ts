@@ -61,3 +61,11 @@ export type QuestionsRequestParamsT = {
    difficulty?: DifficultyT;
    category?: string | '';
 };
+
+export type RecordedAnswerT = {
+   answer: AnswerKeyT;
+   text: string;
+   isCorrect: boolean;
+};
+
+export type userAnswersT = Record<QuizQuestionT['id'], RecordedAnswerT>;

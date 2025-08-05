@@ -1,4 +1,4 @@
-import Results from '@/features/results/ui/Results/Results';
+import Results from '@/features/quiz/ui/Results/Results';
 import styles from './page.module.scss';
 
 export default function ResultsPage() {

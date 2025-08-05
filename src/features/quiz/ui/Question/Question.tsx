@@ -1,9 +1,15 @@
 import { Button, Typography } from '@mui/material';
-import type { QuizQuestionT } from '@/shared/schemas/quiz';
+import type {
+   AnswerKeyT,
+   AnswersT,
+   QuizQuestionT,
+   RecordedAnswerT,
+} from '@/shared/schemas/quiz';
 import Answers from './Answers';
 import { useQuizStore } from '../../store/store';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { checkAnswer } from '@/utils/checkAnswer';
 
 type QuestionProps = {
    id: QuizQuestionT['id'];
@@ -21,8 +27,8 @@ export default function Question({
    const userAnswers = useQuizStore((state) => state.userAnswers);
    const setUserAnswer = useQuizStore((state) => state.setUserAnswer);
 
-   const [selectedAnswer, setSelectedAnswer] = useState<string>(
-      userAnswer || ''
+   const [selectedAnswer, setSelectedAnswer] = useState<RecordedAnswerT>(
+      userAnswer || {}
    );
 
    const onAnswer = () => {
@@ -36,8 +42,17 @@ export default function Question({
       }
    };
 
-   const handleAnswerChange = (answer: string) => {
-      setSelectedAnswer(answer);
+   const handleAnswerChange = (answer: AnswerKeyT, label: string) => {
+      console.log({
+         answer: answer,
+         text: label,
+         isCorrect: checkAnswer(question.correct_answers, answer),
+      });
+      setSelectedAnswer({
+         answer: answer,
+         text: label,
+         isCorrect: checkAnswer(question.correct_answers, answer),
+      });
    };
 
    const router = useRouter();
@@ -52,7 +67,7 @@ export default function Question({
          <Typography component="h4">{question.description}</Typography>
          <Answers
             {...question.answers}
-            selectedAnswer={selectedAnswer}
+            selectedAnswer={selectedAnswer.answer}
             onAnswerChange={handleAnswerChange}
          />
          <div>
