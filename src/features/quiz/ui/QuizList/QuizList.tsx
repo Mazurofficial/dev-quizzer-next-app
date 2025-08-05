@@ -52,7 +52,11 @@ export function QuizList() {
    return (
       <div>
          <LinearProgress variant="determinate" value={progress} />
-         <Question id={activeQuestion.id} onNextQuestion={onNextQuestion} />
+         <Question
+            id={activeQuestion.id}
+            onNextQuestion={onNextQuestion}
+            isLast={answersCount - 1 === activeQuestion.index}
+         />
       </div>
    );
 }
