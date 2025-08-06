@@ -1,24 +1,27 @@
 import type {
    QuizQuestionT,
    RecordedAnswerT,
-   userAnswersT,
+   UserAnswersT,
 } from '@/shared/schemas/quiz';
 import { create } from 'zustand';
 
 type State = {
    quizById: Record<QuizQuestionT['id'], QuizQuestionT>;
    quizIds: QuizQuestionT['id'][];
-   userAnswers: userAnswersT;
+   userAnswers: UserAnswersT;
    activeQuestion: { id: QuizQuestionT['id']; index: number };
+};
+
+type Answer = {
+   questionId: QuizQuestionT['id'];
+   answer: RecordedAnswerT;
 };
 
 type Action = {
    setQuiz: (quiz: QuizQuestionT[]) => void;
    setActiveQuestion: (questionId: State['activeQuestion']) => void;
-   setUserAnswer: (
-      questionId: QuizQuestionT['id'],
-      answer: RecordedAnswerT
-   ) => void;
+   setUserAnswer: (answer: Answer) => void;
+   setUserAnswers: (answers: UserAnswersT) => void;
 };
 
 export const useQuizStore = create<State & Action>((set) => ({
@@ -33,8 +36,9 @@ export const useQuizStore = create<State & Action>((set) => ({
    },
    setActiveQuestion: (activeQuestion) =>
       set({ activeQuestion: { ...activeQuestion } }),
-   setUserAnswer: (questionId, answer) =>
+   setUserAnswer: ({ questionId, answer }) =>
       set((state) => ({
          userAnswers: { ...state.userAnswers, [questionId]: answer },
       })),
+   setUserAnswers: (answers) => set({ userAnswers: answers }),
 }));

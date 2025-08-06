@@ -63,9 +63,9 @@ export type QuestionsRequestParamsT = {
 };
 
 export type RecordedAnswerT = {
-   answer: AnswerKeyT;
+   answer: AnswerKeyT | '';
    text: string;
    isCorrect: boolean;
 };
 
-export type userAnswersT = Record<QuizQuestionT['id'], RecordedAnswerT>;
+export type UserAnswersT = Record<QuizQuestionT['id'], RecordedAnswerT>;
