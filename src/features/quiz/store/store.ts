@@ -22,6 +22,7 @@ type Action = {
    setActiveQuestion: (questionId: State['activeQuestion']) => void;
    setUserAnswer: (answer: Answer) => void;
    setUserAnswers: (answers: UserAnswersT) => void;
+   resetQuiz: () => void;
 };
 
 export const useQuizStore = create<State & Action>((set) => ({
@@ -41,4 +42,11 @@ export const useQuizStore = create<State & Action>((set) => ({
          userAnswers: { ...state.userAnswers, [questionId]: answer },
       })),
    setUserAnswers: (answers) => set({ userAnswers: answers }),
+   resetQuiz: () =>
+      set({
+         quizById: {},
+         quizIds: [],
+         userAnswers: {},
+         activeQuestion: { id: 0, index: 0 },
+      }),
 }));

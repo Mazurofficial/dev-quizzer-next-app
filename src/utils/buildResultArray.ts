@@ -8,5 +8,14 @@ export const buildResultArray = (
       id: id,
       answer: resultArr[id],
    }));
-   return resultArray;
+
+   const culcScore = () => {
+      let score = 0;
+      resultArray.map((q) => {
+         if (q.answer.isCorrect) score++;
+      });
+      return (score / resultArray.length) * 100;
+   };
+
+   return { score: culcScore(), resultArray };
 };
