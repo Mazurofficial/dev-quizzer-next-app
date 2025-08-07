@@ -1,17 +1,20 @@
 'use client';
 
+import styles from './QuizList.module.scss';
 import { useQuizQuestions } from '../../hooks/useQuizQuestions';
 import Question from '../Question/Question';
 import { useQuizStore } from '../../store/store';
 import { useEffect } from 'react';
 import type { QuestionsRequestParamsT } from '@/shared/schemas/params';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { DifficultyT } from '@/shared/schemas/quiz';
-import { LinearProgress } from '@mui/material';
+import { CircularProgress, LinearProgress } from '@mui/material';
 import {
+   clearQuizStorage,
    useHydrateUserAnswers,
    usePersistUserAnswers,
 } from '@/utils/quizStorage';
+import QuestionBadges from '../QuestionBadges/QuestionBadges';
 
 export function QuizList() {
    useHydrateUserAnswers();
@@ -26,6 +29,7 @@ export function QuizList() {
    };
 
    const { isLoading, error } = useQuizQuestions(params);
+   const router = useRouter();
 
    const quizIds = useQuizStore((state) => state.quizIds);
    const setActiveQuestion = useQuizStore((state) => state.setActiveQuestion);
@@ -61,15 +65,21 @@ export function QuizList() {
       }
    };
 
-   if (isLoading) return <div>Loading...</div>;
+   const onFinishQuiz = () => {
+      router.push('/results');
+   };
+
+   if (isLoading) return <CircularProgress />;
    if (error) return <div>Error: {error.message}</div>;
    return (
-      <div>
+      <div className={styles.quiz}>
          <LinearProgress variant="determinate" value={progress} />
+         <QuestionBadges />
          <Question
             id={activeQuestion.id}
             onNextQuestion={onNextQuestion}
             onPrevQuestion={onPrevQuestion}
+            onFinish={onFinishQuiz}
             isLast={quizLength - 1 === activeQuestion.index}
          />
       </div>
