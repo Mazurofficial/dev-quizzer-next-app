@@ -74,7 +74,7 @@ export default function ParamsForm() {
                   {...field}
                   label="Limit"
                   type="number"
-                  slotProps={{ htmlInput: { min: 1, max: 50 } }}
+                  slotProps={{ htmlInput: { min: 1, max: 20 } }}
                   fullWidth
                   error={!!errors.limit}
                   helperText={errors.limit ? errors.limit.message : ''}

@@ -1,15 +1,16 @@
-import { Button, Typography } from '@mui/material';
+import styles from './Question.module.scss';
+import { Button, IconButton, Tooltip, Typography } from '@mui/material';
 import type { AnswerKeyT, QuizQuestionT } from '@/shared/schemas/quiz';
 import Answers from './Answers';
 import { useQuizStore } from '../../store/store';
-import { useRouter } from 'next/navigation';
 import { checkAnswer } from '@/utils/checkAnswer';
-import { clearQuizStorage } from '@/utils/quizStorage';
+import HelpIcon from '@mui/icons-material/Help';
 
 type QuestionProps = {
    id: QuizQuestionT['id'];
    onNextQuestion: () => void;
    onPrevQuestion: () => void;
+   onFinish: () => void;
    isLast: boolean;
 };
 
@@ -17,6 +18,7 @@ export default function Question({
    id,
    onNextQuestion,
    onPrevQuestion,
+   onFinish,
    isLast,
 }: QuestionProps) {
    const question = useQuizStore((state) => state.quizById[id]);
@@ -25,7 +27,6 @@ export default function Question({
    const activeQuestionIndex = useQuizStore(
       (state) => state.activeQuestion.index
    );
-   const router = useRouter();
 
    if (!question) return <div>Loading question...</div>;
 
@@ -40,22 +41,20 @@ export default function Question({
       });
    };
 
-   const finishQuiz = () => {
-      //onNextQuestion();
-      router.push('/results');
-      clearQuizStorage();
-   };
-
    return (
-      <div>
-         <Typography component="h3">{question.question}</Typography>
-         <Typography component="h4">{question.description}</Typography>
+      <div className={styles.question}>
+         <Typography component="h3">
+            {question.question}{' '}
+            <Tooltip title={question.description}>
+               <HelpIcon />
+            </Tooltip>
+         </Typography>
          <Answers
             {...question.answers}
             selectedAnswer={userAnswer?.answer as AnswerKeyT}
             onAnswerChange={handleAnswerChange}
          />
-         <div>
+         <div className={styles.questionBtns}>
             {activeQuestionIndex > 0 && (
                <Button
                   variant="contained"
@@ -69,7 +68,7 @@ export default function Question({
                <Button
                   variant="contained"
                   color="primary"
-                  onClick={finishQuiz}
+                  onClick={onFinish}
                   disabled={!userAnswer?.answer}
                >
                   Finish Quiz
