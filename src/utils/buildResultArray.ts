@@ -2,11 +2,11 @@ import type { QuizQuestionT, UserAnswersT } from '@/shared/schemas/quiz';
 
 export const buildResultArray = (
    quizIds: QuizQuestionT['id'][],
-   resultArr: UserAnswersT
+   resultObj: UserAnswersT
 ) => {
    const resultArray = quizIds.map((id) => ({
       id: id,
-      answer: resultArr[id],
+      answer: resultObj[id],
    }));
 
    const culcScore = () => {

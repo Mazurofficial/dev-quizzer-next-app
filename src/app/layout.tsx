@@ -6,6 +6,7 @@ import { ThemeProvider } from '@mui/material';
 import theme from '@/shared/theme';
 import { QueryProvider } from '@/shared/providers/QueryProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Header from '@/shared/ui/Header/Header';
 
 const geistSans = Geist({
    variable: '--font-geist-sans',
@@ -33,6 +34,7 @@ export default function RootLayout({
             <AppRouterCacheProvider>
                <ThemeProvider theme={theme}>
                   <QueryProvider>
+                     <Header />
                      {children} <ReactQueryDevtools />
                   </QueryProvider>
                </ThemeProvider>

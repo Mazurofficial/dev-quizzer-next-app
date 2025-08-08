@@ -24,9 +24,13 @@ export default function Question({
    const question = useQuizStore((state) => state.quizById[id]);
    const userAnswer = useQuizStore((state) => state.userAnswers[id]);
    const setUserAnswer = useQuizStore((state) => state.setUserAnswer);
+   const quizLength = useQuizStore((state) => state.quizIds.length);
+   const userAnswers = useQuizStore((state) => state.userAnswers);
+   const userAnswersLength = Object.keys(userAnswers).length;
    const activeQuestionIndex = useQuizStore(
       (state) => state.activeQuestion.index
    );
+   const isReadyToFinish = quizLength === userAnswersLength;
 
    if (!question) return <div>Loading question...</div>;
 
@@ -57,14 +61,24 @@ export default function Question({
          <div className={styles.questionBtns}>
             {activeQuestionIndex > 0 && (
                <Button
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   onClick={onPrevQuestion}
                >
                   Previous
                </Button>
             )}
-            {isLast ? (
+            {activeQuestionIndex < quizLength - 1 && (
+               <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={onNextQuestion}
+                  disabled={!userAnswer?.answer}
+               >
+                  Next
+               </Button>
+            )}
+            {isReadyToFinish && (
                <Button
                   variant="contained"
                   color="primary"
@@ -72,15 +86,6 @@ export default function Question({
                   disabled={!userAnswer?.answer}
                >
                   Finish Quiz
-               </Button>
-            ) : (
-               <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={onNextQuestion}
-                  disabled={!userAnswer?.answer}
-               >
-                  Next
                </Button>
             )}
          </div>
