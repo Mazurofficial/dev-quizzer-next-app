@@ -5,13 +5,13 @@ import Answers from './Answers';
 import { useQuizStore } from '../../store/store';
 import { checkAnswer } from '@/utils/checkAnswer';
 import HelpIcon from '@mui/icons-material/Help';
+import AnswersMultiple from './AnswersMultiple';
 
 type QuestionProps = {
    id: QuizQuestionT['id'];
    onNextQuestion: () => void;
    onPrevQuestion: () => void;
    onFinish: () => void;
-   isLast: boolean;
 };
 
 export default function Question({
@@ -19,7 +19,6 @@ export default function Question({
    onNextQuestion,
    onPrevQuestion,
    onFinish,
-   isLast,
 }: QuestionProps) {
    const question = useQuizStore((state) => state.quizById[id]);
    const userAnswer = useQuizStore((state) => state.userAnswers[id]);
@@ -34,13 +33,37 @@ export default function Question({
 
    if (!question) return <div>Loading question...</div>;
 
-   const handleAnswerChange = (answer: AnswerKeyT, label: string) => {
+   const handleSingleAnswerChange = (answer: AnswerKeyT, label: string) => {
+      const newAnswer = [answer] as AnswerKeyT[];
       setUserAnswer({
          questionId: id,
          answer: {
-            answer,
+            question: question.question,
+            explanation: question.explanation,
+            answer: newAnswer,
             text: label,
-            isCorrect: checkAnswer(question.correct_answers, answer),
+            isCorrect: checkAnswer(question.correct_answers, newAnswer),
+         },
+      });
+   };
+
+   const handleMultipleAnswerChange = (answer: AnswerKeyT, label: string) => {
+      const currentAnswers = (userAnswer?.answer as AnswerKeyT[]) || [];
+      let newAnswer: AnswerKeyT[];
+
+      if (currentAnswers.includes(answer)) {
+         newAnswer = currentAnswers.filter((a) => a !== answer);
+      } else {
+         newAnswer = [...currentAnswers, answer];
+      }
+      setUserAnswer({
+         questionId: id,
+         answer: {
+            question: question.question,
+            explanation: question.explanation,
+            answer: newAnswer,
+            text: label,
+            isCorrect: checkAnswer(question.correct_answers, newAnswer),
          },
       });
    };
@@ -49,15 +72,23 @@ export default function Question({
       <div className={styles.question}>
          <Typography component="h3">
             {question.question}{' '}
-            <Tooltip title={question.description}>
+            <Tooltip title={question.explanation}>
                <HelpIcon />
             </Tooltip>
          </Typography>
-         <Answers
-            {...question.answers}
-            selectedAnswer={userAnswer?.answer as AnswerKeyT}
-            onAnswerChange={handleAnswerChange}
-         />
+         {question.multiple_correct_answers === 'true' ? (
+            <AnswersMultiple
+               {...question.answers}
+               selectedAnswers={userAnswer?.answer as AnswerKeyT[]}
+               onAnswerChange={handleMultipleAnswerChange}
+            />
+         ) : (
+            <Answers
+               {...question.answers}
+               selectedAnswer={userAnswer?.answer[0] as AnswerKeyT}
+               onAnswerChange={handleSingleAnswerChange}
+            />
+         )}
          <div className={styles.questionBtns}>
             {activeQuestionIndex > 0 && (
                <Button

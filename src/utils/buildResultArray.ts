@@ -14,7 +14,7 @@ export const buildResultArray = (
       resultArray.map((q) => {
          if (q.answer.isCorrect) score++;
       });
-      return (score / resultArray.length) * 100;
+      return Math.round((score / resultArray.length) * 100 * 10) / 10;
    };
 
    return { score: culcScore(), resultArray };

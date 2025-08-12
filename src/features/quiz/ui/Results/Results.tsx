@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { useParamsStore } from '@/features/params/store/store';
+import QuizAnswers from './QuizAnswers';
 
 export default function Results() {
    const quizIds = useQuizStore((state) => state.quizIds);
@@ -39,6 +40,7 @@ export default function Results() {
          link.click();
       }
    };
+   console.log(resultArray);
 
    return (
       <div>
@@ -76,16 +78,7 @@ export default function Results() {
                Start new quiz
             </Button>
          </div>
-
-         {resultArray.map((q, i) => (
-            <Typography key={q.id}>
-               <i>Question {i + 1}:</i> {q.answer.text} |{' '}
-               {q.answer.answer
-                  .charAt(q.answer.answer.length - 1)
-                  .toUpperCase()}{' '}
-               | <b>{q.answer.isCorrect ? 'TRUE' : 'FALSE'}</b>
-            </Typography>
-         ))}
+         <QuizAnswers answers={resultArray} />
       </div>
    );
 }

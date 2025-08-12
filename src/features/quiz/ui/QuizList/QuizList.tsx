@@ -80,7 +80,6 @@ export function QuizList() {
             onNextQuestion={onNextQuestion}
             onPrevQuestion={onPrevQuestion}
             onFinish={onFinishQuiz}
-            isLast={quizLength - 1 === activeQuestion.index}
          />
       </div>
    );
