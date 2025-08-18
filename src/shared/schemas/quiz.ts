@@ -65,9 +65,13 @@ export type QuestionsRequestParamsT = {
 export type RecordedAnswerT = {
    question: string;
    explanation: QuizQuestionT['explanation'];
-   answer: AnswerKeyT[] | '';
-   text: string;
+   answer: AnswerKeyT[];
+   text: string[];
    isCorrect: boolean;
+   correctAnswer: {
+      answers: string[];
+      texts: string[];
+   };
 };
 
 export type UserAnswersT = Record<QuizQuestionT['id'], RecordedAnswerT>;

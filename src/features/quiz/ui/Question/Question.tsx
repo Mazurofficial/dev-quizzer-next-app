@@ -1,6 +1,11 @@
 import styles from './Question.module.scss';
-import { Button, IconButton, Tooltip, Typography } from '@mui/material';
-import type { AnswerKeyT, QuizQuestionT } from '@/shared/schemas/quiz';
+import { Button, Tooltip, Typography } from '@mui/material';
+import type {
+   AnswerKeyT,
+   AnswersT,
+   CorrectAnswersT,
+   QuizQuestionT,
+} from '@/shared/schemas/quiz';
 import Answers from './Answers';
 import { useQuizStore } from '../../store/store';
 import { checkAnswer } from '@/utils/checkAnswer';
@@ -33,6 +38,37 @@ export default function Question({
 
    if (!question) return <div>Loading question...</div>;
 
+   const writeCorrectAnswers = (
+      correctAnswers: CorrectAnswersT,
+      texts: AnswersT
+   ) => {
+      const correctKeys = (
+         Object.keys(correctAnswers) as (keyof typeof correctAnswers)[]
+      )
+         .filter((key) => correctAnswers[key] === 'true')
+         .map((key) => key.replace(/_correct$/, '') as keyof typeof texts);
+      //.charAt(0).toUpperCase()
+
+      const correctTexts = correctKeys
+         .map((key) => texts[key])
+         .filter((text): text is string => text != null);
+
+      const correctLetters = correctKeys.map(
+         (key) => key.charAt(key.length - 1).toUpperCase() + ') '
+      );
+
+      return {
+         answers: correctLetters,
+         texts: correctTexts,
+      };
+   };
+
+   const correctAnswers = writeCorrectAnswers(
+      question.correct_answers,
+      question.answers
+   );
+   console.log(correctAnswers);
+
    const handleSingleAnswerChange = (answer: AnswerKeyT, label: string) => {
       const newAnswer = [answer] as AnswerKeyT[];
       setUserAnswer({
@@ -41,13 +77,14 @@ export default function Question({
             question: question.question,
             explanation: question.explanation,
             answer: newAnswer,
-            text: label,
+            text: [label],
             isCorrect: checkAnswer(question.correct_answers, newAnswer),
+            correctAnswer: correctAnswers,
          },
       });
    };
 
-   const handleMultipleAnswerChange = (answer: AnswerKeyT, label: string) => {
+   const handleMultipleAnswerChange = (answer: AnswerKeyT) => {
       const currentAnswers = (userAnswer?.answer as AnswerKeyT[]) || [];
       let newAnswer: AnswerKeyT[];
 
@@ -56,14 +93,20 @@ export default function Question({
       } else {
          newAnswer = [...currentAnswers, answer];
       }
+
+      const answerLabels: string[] = newAnswer.map((a) => {
+         return question.answers[a] ?? a;
+      });
+
       setUserAnswer({
          questionId: id,
          answer: {
             question: question.question,
             explanation: question.explanation,
             answer: newAnswer,
-            text: label,
+            text: answerLabels,
             isCorrect: checkAnswer(question.correct_answers, newAnswer),
+            correctAnswer: correctAnswers,
          },
       });
    };

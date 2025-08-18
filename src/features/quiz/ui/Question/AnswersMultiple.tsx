@@ -8,7 +8,7 @@ import {
 
 type AnswersProps = AnswersT & {
    selectedAnswers?: AnswerKeyT[];
-   onAnswerChange: (answer: AnswerKeyT, label: string) => void;
+   onAnswerChange: (answer: AnswerKeyT) => void;
 };
 
 export default function AnswersMultiple({
@@ -17,13 +17,10 @@ export default function AnswersMultiple({
    ...answers
 }: AnswersProps) {
    const isChecked = (key: AnswerKeyT) =>
-      selectedAnswers?.includes(key as AnswerKeyT);
+      selectedAnswers?.includes(key as AnswerKeyT) ? true : false;
 
    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onAnswerChange(
-         e.target.value as AnswerKeyT,
-         answers[e.target.value as AnswerKeyT] ?? ''
-      );
+      onAnswerChange(e.target.value as AnswerKeyT);
    };
 
    return (

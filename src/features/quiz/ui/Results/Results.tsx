@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { useParamsStore } from '@/features/params/store/store';
-import QuizAnswers from './QuizAnswers';
+import QuizAnswers from '../QuizAnswers/QuizAnswers';
 
 export default function Results() {
    const quizIds = useQuizStore((state) => state.quizIds);
