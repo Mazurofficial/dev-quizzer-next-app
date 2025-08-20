@@ -27,6 +27,26 @@ const theme = createTheme({
    typography: {
       fontFamily: ['Geologica', 'sans-serif'].join(','), // $font-main
       fontSize: 16, // $font-size-base
+      h1: {
+         fontSize: '70px',
+         fontWeight: '600',
+      },
+      h2: {
+         fontSize: '55px',
+         fontWeight: '600',
+      },
+      h3: {
+         fontSize: '38px',
+         fontWeight: '600',
+      },
+      h4: {
+         fontSize: '32px',
+         fontWeight: '600',
+      },
+      h5: {
+         fontSize: '22px',
+         fontWeight: '600',
+      },
    },
 });
 

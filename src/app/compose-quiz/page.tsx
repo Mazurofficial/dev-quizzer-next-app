@@ -1,11 +1,14 @@
 import ParamsForm from '@/features/params/ui/ParamsForm/ParamsForm';
 import styles from './page.module.scss';
+import { Container, Typography } from '@mui/material';
 
 export default function ComposeQuiz() {
    return (
-      <div className={styles.page}>
-         <h1>Create your personal quiz</h1>
+      <Container className={styles.page} maxWidth="lg">
+         <Typography variant="h2" component="h1">
+            ✏️ Create your personal quiz
+         </Typography>
          <ParamsForm />
-      </div>
+      </Container>
    );
 }

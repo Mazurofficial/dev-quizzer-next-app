@@ -8,7 +8,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 export default function Header() {
    return (
       <header className={styles.header}>
-         <Image src={logo} alt="LOGO" />
+         <Image src={logo} alt="LOGO" priority />
          <Link href="https://github.com/Mazurofficial/dev-quizzer-next-app">
             <IconButton color="primary">
                <GitHubIcon />
