@@ -9,12 +9,15 @@ export async function fetchQuizQuestions(
 ): Promise<QuizQuestionT[]> {
    const apiKey = process.env.NEXT_PUBLIC_API_KEY as string;
    const url = 'https://quizapi.io/api/v1/questions';
+   console.log(apiKey);
    const res = await axios.get(url, {
       params,
       headers: {
          'X-Api-Key': apiKey,
       },
    });
+   console.log(res);
+
    const data = safeParseWithZod<QuizQuestionT[]>(
       QuizQuestionSchema.array(),
       res.data
