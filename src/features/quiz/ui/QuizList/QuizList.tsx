@@ -10,7 +10,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import type { DifficultyT } from '@/shared/schemas/quiz';
 import { CircularProgress, LinearProgress } from '@mui/material';
 import {
-   clearQuizStorage,
    useHydrateUserAnswers,
    usePersistUserAnswers,
 } from '@/utils/quizStorage';

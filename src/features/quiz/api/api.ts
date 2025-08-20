@@ -10,9 +10,9 @@ export async function fetchQuizQuestions(
    const apiKey = process.env.NEXT_PUBLIC_API_KEY as string;
    const url = 'https://quizapi.io/api/v1/questions';
    const res = await axios.get(url, {
-      params: {
-         apiKey,
-         ...params,
+      params,
+      headers: {
+         'X-Api-Key': apiKey,
       },
    });
    const data = safeParseWithZod<QuizQuestionT[]>(
