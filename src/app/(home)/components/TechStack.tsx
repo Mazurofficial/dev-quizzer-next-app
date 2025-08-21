@@ -1,4 +1,4 @@
-import { Avatar, Chip, Container, Typography } from '@mui/material';
+import { Chip, Container, Typography } from '@mui/material';
 import styles from './Styles.module.scss';
 import Image from 'next/image';
 import nextjs from '@/assets/nextjs.png';

@@ -1,4 +1,4 @@
-import { Paper, Slide, Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import Image, { type StaticImageData } from 'next/image';
 import styles from './Styles.module.scss';
 

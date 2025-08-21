@@ -18,6 +18,7 @@ import {
    type QuestionsRequestParamsT,
 } from '@/shared/schemas/params';
 import { useRouter } from 'next/navigation';
+import useResetQuiz from '@/features/quiz/hooks/useResetQuiz';
 
 const DIFFICULTY_OPTIONS = ['Easy', 'Medium', 'Hard'];
 const CATEGORY_OPTIONS = [
@@ -47,10 +48,11 @@ export default function ParamsForm() {
    });
 
    const router = useRouter();
-
    const setParams = useParamsStore((state) => state.setParams);
+   const resetQuiz = useResetQuiz();
 
    const onSubmit = (data: QuestionsRequestParamsT) => {
+      resetQuiz();
       setParams(data);
       const params = new URLSearchParams();
       if (data.limit) params.append('limit', String(data.limit));

@@ -4,28 +4,18 @@ import html2canvas from 'html2canvas';
 import styles from './Results.module.scss';
 import { useQuizStore } from '@/features/quiz/store/store';
 import { buildResultArray } from '@/utils/buildResultArray';
-import { clearQuizStorage } from '@/utils/quizStorage';
 import { Button, Typography } from '@mui/material';
-import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { useParamsStore } from '@/features/params/store/store';
 import QuizAnswers from '../QuizAnswers/QuizAnswers';
+import Link from 'next/link';
 
 export default function Results() {
    const quizIds = useQuizStore((state) => state.quizIds);
    const userAnswers = useQuizStore((state) => state.userAnswers);
    const { score, resultArray } = buildResultArray(quizIds, userAnswers);
-   const resetQuiz = useQuizStore((state) => state.resetQuiz);
-   const router = useRouter();
    const params = useParamsStore((state) => state.params);
-
-   const onStartNewQuiz = () => {
-      clearQuizStorage();
-      resetQuiz();
-      router.push('/compose-quiz');
-   };
-
    const resultRef = useRef(null);
 
    const handleDownloadImage = async () => {
@@ -40,7 +30,6 @@ export default function Results() {
          link.click();
       }
    };
-   console.log(resultArray);
 
    return (
       <div>
@@ -70,12 +59,8 @@ export default function Results() {
             >
                Download Results as Image
             </Button>
-            <Button
-               variant="contained"
-               color="primary"
-               onClick={onStartNewQuiz}
-            >
-               Start new quiz
+            <Button variant="contained" color="primary">
+               <Link href="/compose-quiz">Start new quiz</Link>
             </Button>
          </div>
          <QuizAnswers answers={resultArray} />

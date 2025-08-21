@@ -6,6 +6,12 @@
 
     box-shadow: 0 0 20 2 rgba(0, 0, 0, 0.15);
 
+    .rightPart {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+    }
+
     img {
         height: 40px;
         width: 334px;
