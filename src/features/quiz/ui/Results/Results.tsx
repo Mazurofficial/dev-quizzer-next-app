@@ -4,7 +4,7 @@ import html2canvas from 'html2canvas';
 import styles from './Results.module.scss';
 import { useQuizStore } from '@/features/quiz/store/store';
 import { buildResultArray } from '@/utils/buildResultArray';
-import { Button, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import { useRef } from 'react';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { useParamsStore } from '@/features/params/store/store';
@@ -33,11 +33,18 @@ export default function Results() {
 
    return (
       <div>
-         <div ref={resultRef} className={styles.resultsShareBanner}>
+         <Paper
+            elevation={3}
+            ref={resultRef}
+            className={styles.resultsShareBanner}
+         >
             <Typography variant="h5">
                Look at my score on DEV QUIZZER
             </Typography>
-            <Typography variant="h3">{score}/100</Typography>
+            <Typography variant="h2">
+               {score}
+               <Typography component="span">/100</Typography>
+            </Typography>
             <div>
                <Typography>
                   Difficulty:{' '}
@@ -50,16 +57,16 @@ export default function Results() {
                   <i>{params.category !== '' ? params.category : 'RANDOM'}</i>
                </Typography>
             </div>
-         </div>
+         </Paper>
          <div className={styles.resultsBtns}>
             <Button
-               variant="outlined"
+               variant="contained"
                onClick={handleDownloadImage}
                startIcon={<IosShareIcon />}
             >
                Download Results as Image
             </Button>
-            <Button variant="contained" color="primary">
+            <Button variant="outlined" color="primary">
                <Link href="/compose-quiz">Start new quiz</Link>
             </Button>
          </div>

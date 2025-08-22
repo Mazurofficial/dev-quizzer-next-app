@@ -19,16 +19,18 @@ export default function AnswerTitle({
          {title}{' '}
          {isCorrect ? (
             <Chip
-               label="RIGHT"
+               label="Right"
                color="success"
-               variant="filled"
+               variant="outlined"
+               size="small"
                icon={<DoneIcon />}
             />
          ) : (
             <Chip
-               label="ERROR"
+               label="Error"
                color="error"
-               variant="filled"
+               variant="outlined"
+               size="small"
                icon={<BlockIcon />}
             />
          )}

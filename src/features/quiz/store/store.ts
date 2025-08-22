@@ -42,21 +42,6 @@ export const useQuizStore = create<State & Action>((set) => ({
          userAnswers: { ...state.userAnswers, [questionId]: answer },
       })),
    setUserAnswers: (answers) => set({ userAnswers: answers }),
-   // setCorrectAnswers: (correctAnswers, texts) => {
-   //    const correctKeys = (Object.keys(correctAnswers) as CorrectAnswerKeyT[])
-   //       .filter((key) => correctAnswers[key] === 'true')
-   //       .map((key) => key.replace(/_correct$/, ''));
-
-   //    const correctTexts = correctKeys
-   //       .map((key) => texts[key as AnswerKeyT])
-   //       .filter((text) => text != null);
-   //    set({
-   //       correctAnswers: {
-   //          answers: correctKeys as AnswerKeyT[],
-   //          texts: correctTexts,
-   //       },
-   //    });
-   // },
    resetQuiz: () =>
       set({
          quizById: {},

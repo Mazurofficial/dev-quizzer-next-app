@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { id } from 'zod/v4/locales';
 
 export const AnswersSchema = z.object({
    answer_a: z.string().nullable(),
@@ -53,6 +54,15 @@ export const QuizQuestionSchema = z.object({
    category: z.string(),
    difficulty: DifficultySchema,
 });
+
+export const CategoriesSchema = z.array(
+   z.object({
+      id: z.number(),
+      name: z.string(),
+   })
+);
+
+export type CategoriesT = z.infer<typeof CategoriesSchema>;
 
 export type QuizQuestionT = z.infer<typeof QuizQuestionSchema>;
 

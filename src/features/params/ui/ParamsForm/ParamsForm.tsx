@@ -11,6 +11,8 @@ import {
    TextField,
    Box,
    FormHelperText,
+   CircularProgress,
+   Typography,
 } from '@mui/material';
 import { useParamsStore } from '../../store/store';
 import {
@@ -19,19 +21,10 @@ import {
 } from '@/shared/schemas/params';
 import { useRouter } from 'next/navigation';
 import useResetQuiz from '@/features/quiz/hooks/useResetQuiz';
+import { useQuery } from '@tanstack/react-query';
+import { fetchQuizCategories } from '../../api/api';
 
 const DIFFICULTY_OPTIONS = ['Easy', 'Medium', 'Hard'];
-const CATEGORY_OPTIONS = [
-   'Code',
-   'Docker',
-   'Linux',
-   'DevOps',
-   'VueJS',
-   'NodeJs',
-   'HTML',
-   'bash',
-   'WordPress',
-];
 
 export default function ParamsForm() {
    const {
@@ -45,6 +38,13 @@ export default function ParamsForm() {
          difficulty: '',
          category: '',
       },
+   });
+
+   const categories = useQuery({
+      queryKey: ['quiz-categories'],
+      queryFn: () => fetchQuizCategories(),
+      enabled: true,
+      staleTime: Infinity,
    });
 
    const router = useRouter();
@@ -125,11 +125,24 @@ export default function ParamsForm() {
                      <MenuItem value="">
                         <em>Any</em>
                      </MenuItem>
-                     {CATEGORY_OPTIONS.map((option) => (
-                        <MenuItem key={option} value={option}>
-                           {option}
+                     {categories.error && (
+                        <MenuItem disabled>
+                           <Typography color="error">
+                              {categories.error.message}
+                           </Typography>
                         </MenuItem>
-                     ))}
+                     )}
+                     {categories.isLoading ? (
+                        <MenuItem disabled>
+                           <CircularProgress size={20} />
+                        </MenuItem>
+                     ) : (
+                        categories.data?.map((option) => (
+                           <MenuItem key={option.id} value={option.name}>
+                              {option.name}
+                           </MenuItem>
+                        ))
+                     )}
                   </Select>
                   <FormHelperText>
                      {errors.category ? errors.category.message : ''}
