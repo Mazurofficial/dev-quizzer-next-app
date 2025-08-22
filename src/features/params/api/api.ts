@@ -10,7 +10,6 @@ export async function fetchQuizCategories(): Promise<CategoriesT> {
          'X-Api-Key': apiKey,
       },
    });
-   console.log(res.data);
 
    const data = safeParseWithZod<CategoriesT>(CategoriesSchema, res.data);
    return data;

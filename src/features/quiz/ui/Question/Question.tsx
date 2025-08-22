@@ -1,5 +1,5 @@
 import styles from './Question.module.scss';
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Button, CircularProgress, Tooltip, Typography } from '@mui/material';
 import type {
    AnswerKeyT,
    AnswersT,
@@ -36,7 +36,12 @@ export default function Question({
    );
    const isReadyToFinish = quizLength === userAnswersLength;
 
-   if (!question) return <div>Loading question...</div>;
+   if (!question)
+      return (
+         <div className={styles.question}>
+            <CircularProgress />
+         </div>
+      );
 
    const writeCorrectAnswers = (
       correctAnswers: CorrectAnswersT,
@@ -67,7 +72,6 @@ export default function Question({
       question.correct_answers,
       question.answers
    );
-   console.log(correctAnswers);
 
    const handleSingleAnswerChange = (answer: AnswerKeyT, label: string) => {
       const newAnswer = [answer] as AnswerKeyT[];

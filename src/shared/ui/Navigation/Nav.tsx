@@ -1,13 +1,11 @@
 'use client';
 
+import useHaveActiveQuiz from '@/features/quiz/hooks/useHaveActiveQuiz';
 import styles from './Nav.module.scss';
-import { useQuizStore } from '@/features/quiz/store/store';
 import { Link } from '@mui/material';
 
 export default function Nav() {
-   const quizIds = useQuizStore((state) => state.quizIds);
-   const haveActiveQuiz = quizIds.length > 0;
-
+   const haveActiveQuiz = useHaveActiveQuiz();
    return (
       <nav className={styles.navigation}>
          <Link href="/" underline="none">

@@ -14,21 +14,21 @@ export function useQuizQuestions(params: QuestionsRequestParamsT) {
       const storedQuiz = getQuizFromStorage();
       if (storedQuiz) {
          setQuiz(storedQuiz);
-         setInitialized(true);
-      } else {
          setInitialized(false);
+      } else {
+         setInitialized(true);
       }
    }, [setQuiz]);
 
    const { data, isLoading, error } = useQuery({
       queryKey: ['quiz-questions', params],
       queryFn: () => fetchQuizQuestions(params),
-      enabled: !initialized,
+      enabled: initialized,
       staleTime: Infinity,
    });
 
    useEffect(() => {
-      if (data && !initialized) {
+      if (data && initialized) {
          setQuiz(data);
          saveQuizToStorage(data);
          setInitialized(true);
