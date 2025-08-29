@@ -1,10 +1,10 @@
 .resultsShareBanner {
     width: 800px;
-    height: 400px;
+    padding: 0;
 
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     justify-self: center;
     gap: 40px;
@@ -15,6 +15,119 @@
 
     background: linear-gradient(135deg, #2563eb 0%, #1de9b6 100%);
     color: #fff;
+}
+
+.monkeyImg {
+    width: 33%;
+    height: 400px;
+    background-image: url('../../../../assets/monkeys/jungles.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+
+.monkey_bananaDropper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background-image: url('../../../../assets/monkeys/BananaDropper.webp');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.monkey_treeClimber::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background-image: url('../../../../assets/monkeys/TreeClimber.webp');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.monkey_bananaCollector::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background-image: url('../../../../assets/monkeys/BananaCollector.webp');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.monkey_jungleHero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background-image: url('../../../../assets/monkeys/JungleHero.webp');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.monkey_monkeyKing::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background-image: url('../../../../assets/monkeys/MonkeyKing.webp');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.resultsInfo {
+    width: 67%;
+    height: 400px;
+    padding: 22px 40px 22px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &_center {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+}
+
+.difficulty {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.bananas {
+    display: flex;
+    gap: 20px;
+}
+
+.poweredBy {
+    display: flex;
+    align-items: center;
+    gap: 11px;
 }
 
 .resultsBtns {
