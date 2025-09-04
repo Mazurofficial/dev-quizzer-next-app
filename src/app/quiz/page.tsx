@@ -6,7 +6,7 @@ import { CircularProgress, Container, Typography } from '@mui/material';
 export default function Quiz() {
    return (
       <Container className={styles.page} maxWidth="lg">
-         <Typography variant="h2" component="h1">
+         <Typography variant="h2" component="h1" gutterBottom>
             💻 Code, Think, Answer!
          </Typography>
          <Suspense fallback={<CircularProgress />}>

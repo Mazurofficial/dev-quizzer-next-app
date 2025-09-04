@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { RecordedAnswerT } from '@/shared/schemas/quiz';
 import AnswerTitle from './AnswerTitle';
 import AnswerDetails from './AnswerDetails';
+import styles from './QuizAnswers.module.scss';
 
 type QuizAnswerProps = {
    answers: {
@@ -15,7 +16,7 @@ type QuizAnswerProps = {
 
 export default function QuizAnswers({ answers }: QuizAnswerProps) {
    return (
-      <div>
+      <div className={styles.answersList}>
          {answers.map((q, i) => (
             <Accordion key={q.id}>
                <AccordionSummary

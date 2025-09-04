@@ -11,7 +11,6 @@ import { useParamsStore } from '@/features/params/store/store';
 import QuizAnswers from '../QuizAnswers/QuizAnswers';
 import Link from 'next/link';
 import Image from 'next/image';
-import bananadropper from '@/assets/bananadropper.webp';
 import logo from '@/assets/devquizzer_logo.svg';
 import Bananas from './Bananas';
 
@@ -61,7 +60,7 @@ export default function Results() {
    };
 
    return (
-      <div>
+      <div className={styles.results}>
          <Paper
             elevation={3}
             ref={resultRef}
