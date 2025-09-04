@@ -24,13 +24,22 @@ export default function Results() {
    const handleDownloadImage = async () => {
       if (resultRef.current) {
          const canvas = await html2canvas(resultRef.current, {
-            backgroundColor: '#fff', // ensures white background
-            useCORS: true, // if you have images from other domains
+            backgroundColor: '#fff',
+            useCORS: true,
          });
+         const dataUrl = canvas.toDataURL('image/png');
          const link = document.createElement('a');
          link.download = 'quiz-results.png';
-         link.href = canvas.toDataURL('image/png');
-         link.click();
+         link.href = dataUrl;
+
+         // Detect if on mobile
+         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+         if (isMobile) {
+            window.open(dataUrl, '_blank');
+         } else {
+            link.click();
+         }
       }
    };
 

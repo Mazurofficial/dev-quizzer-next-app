@@ -5,7 +5,7 @@ import logo_dark from '@/assets/devquizzer_logo_dark.svg';
 import styles from './Header.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IconButton, useMediaQuery, useTheme } from '@mui/material';
+import { IconButton, useMediaQuery } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import Nav from '../Navigation/Nav';
 
