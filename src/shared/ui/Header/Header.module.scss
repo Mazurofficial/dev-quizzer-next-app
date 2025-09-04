@@ -17,3 +17,24 @@
         width: 334px;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 20px 10px;
+
+
+        img {
+            height: 30px;
+            width: 250px;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .header {
+
+        .rightPart {
+            display: none
+        }
+    }
+}

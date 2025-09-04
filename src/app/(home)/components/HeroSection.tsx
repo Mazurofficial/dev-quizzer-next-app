@@ -18,7 +18,7 @@ export default function HeroSection() {
          </div>
 
          <div className={styles.hero_text}>
-            <Typography variant="h1">
+            <Typography variant="h1" gutterBottom>
                DevQuizzer - Your go-to quiz for developers
             </Typography>
             <Typography>

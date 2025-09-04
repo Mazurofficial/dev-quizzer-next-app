@@ -9,7 +9,7 @@ import Link from 'next/link';
 export default function HowItWorks() {
    return (
       <Container className={styles.howItWorks} maxWidth="lg">
-         <Typography variant="h2" align="center">
+         <Typography variant="h2" align="center" gutterBottom>
             ⚙️ How It Works
          </Typography>
          <Link href="/compose-quiz">
