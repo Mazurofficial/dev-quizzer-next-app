@@ -4,7 +4,7 @@ import html2canvas from 'html2canvas';
 import styles from './Results.module.scss';
 import { useQuizStore } from '@/features/quiz/store/store';
 import { buildResultArray } from '@/utils/buildResultArray';
-import { Button, Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography, useMediaQuery } from '@mui/material';
 import { useRef } from 'react';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { useParamsStore } from '@/features/params/store/store';
@@ -12,6 +12,7 @@ import QuizAnswers from '../QuizAnswers/QuizAnswers';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '@/assets/devquizzer_logo.svg';
+import logo_dark from '@/assets/devquizzer_logo_dark.svg';
 import Bananas from './Bananas';
 
 export default function Results() {
@@ -27,21 +28,14 @@ export default function Results() {
             backgroundColor: '#fff',
             useCORS: true,
          });
-         const dataUrl = canvas.toDataURL('image/png');
          const link = document.createElement('a');
          link.download = 'quiz-results.png';
-         link.href = dataUrl;
-
-         // Detect if on mobile
-         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-         if (isMobile) {
-            window.open(dataUrl, '_blank');
-         } else {
-            link.click();
-         }
+         link.href = canvas.toDataURL('image/png');
+         link.click();
       }
    };
+
+   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
    const calcBananas = (difficulty: typeof params.difficulty) => {
       if (difficulty === 'Easy') return 1;
@@ -104,7 +98,14 @@ export default function Results() {
                   </div>
                </div>
                <Typography component="p" className={styles.poweredBy}>
-                  powered by {<Image src={logo} alt="logo" height="20" />}
+                  powered by{' '}
+                  {
+                     <Image
+                        src={prefersDarkMode ? logo_dark : logo}
+                        alt="logo"
+                        height="20"
+                     />
+                  }
                </Typography>
             </div>
          </Paper>

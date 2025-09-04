@@ -13,6 +13,7 @@ import {
    FormHelperText,
    CircularProgress,
    Typography,
+   useMediaQuery,
 } from '@mui/material';
 import { useParamsStore } from '../../store/store';
 import {
@@ -39,6 +40,8 @@ export default function ParamsForm() {
          category: '',
       },
    });
+
+   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
    const categories = useQuery({
       queryKey: ['quiz-categories'],
@@ -76,6 +79,7 @@ export default function ParamsForm() {
                   {...field}
                   label="Limit"
                   type="number"
+                  color={prefersDarkMode ? 'primary' : 'secondary'}
                   slotProps={{ htmlInput: { min: 1, max: 20 } }}
                   fullWidth
                   error={!!errors.limit}

@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 
@@ -154,6 +155,9 @@
 }
 
 @media screen and (max-width: 500px) {
+    .results {
+        align-items: flex-start;
+    }
 
     .resultsShareBanner {
         transform: scale(0.45);

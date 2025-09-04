@@ -3,25 +3,52 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
-   palette: {
-      primary: {
-         main: '#2563eb', // $primary-color
-         dark: '#1d4ed8', // $primary-hover-color
+   colorSchemes: {
+      light: {
+         palette: {
+            primary: {
+               main: '#2563eb', // $primary-color
+               dark: '#1d4ed8', // $primary-hover-color
+            },
+            secondary: {
+               main: '#1d4ed8', // $secondary-color
+            },
+            error: {
+               main: '#C03221', // $red-color
+               dark: '#9a180a', // $red-color-hover
+            },
+            background: {
+               default: '#f9fafb', // $bg-color
+               paper: '#ffffff',
+            },
+            text: {
+               primary: '#111827', // $text-color
+               secondary: '#111111', // $dark-color
+            },
+         },
       },
-      secondary: {
-         main: '#1d4ed8', // $secondary-color
-      },
-      error: {
-         main: '#C03221', // $red-color
-         dark: '#9a180a', // $red-color-hover
-      },
-      background: {
-         default: '#f9fafb', // $bg-color
-         paper: '#ffffff',
-      },
-      text: {
-         primary: '#111827', // $text-color
-         secondary: '#111111', // $dark-color
+      dark: {
+         palette: {
+            primary: {
+               main: '#2563eb', // $primary-color
+               dark: '#1d4ed8', // $primary-hover-color
+            },
+            secondary: {
+               main: '#818cf8', // indigo-400
+            },
+            error: {
+               main: '#f87171', // red-400
+               dark: '#b91c1c',
+            },
+            background: {
+               default: '#18181b', // zinc-900
+               paper: '#27272a', // zinc-800
+            },
+            text: {
+               primary: '#f3f4f6', // gray-100
+               secondary: '#a1a1aa', // zinc-400
+            },
+         },
       },
    },
    typography: {
