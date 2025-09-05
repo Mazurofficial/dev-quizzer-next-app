@@ -4,7 +4,7 @@ import html2canvas from 'html2canvas';
 import styles from './Results.module.scss';
 import { useQuizStore } from '@/features/quiz/store/store';
 import { buildResultArray } from '@/utils/buildResultArray';
-import { Button, Paper, Typography, useMediaQuery } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import { useRef } from 'react';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { useParamsStore } from '@/features/params/store/store';
@@ -14,6 +14,7 @@ import Image from 'next/image';
 import logo from '@/assets/devquizzer_logo.svg';
 import logo_dark from '@/assets/devquizzer_logo_dark.svg';
 import Bananas from './Bananas';
+import { useThemeStore } from '@/features/themeSwitcher/store/store';
 
 export default function Results() {
    const quizIds = useQuizStore((state) => state.quizIds);
@@ -21,6 +22,7 @@ export default function Results() {
    const { score, resultArray } = buildResultArray(quizIds, userAnswers);
    const params = useParamsStore((state) => state.params);
    const resultRef = useRef(null);
+   const theme = useThemeStore((state) => state.resolvedMode);
 
    const handleDownloadImage = async () => {
       if (resultRef.current) {
@@ -34,8 +36,6 @@ export default function Results() {
          link.click();
       }
    };
-
-   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
    const calcBananas = (difficulty: typeof params.difficulty) => {
       if (difficulty === 'Easy') return 1;
@@ -101,7 +101,7 @@ export default function Results() {
                   powered by{' '}
                   {
                      <Image
-                        src={prefersDarkMode ? logo_dark : logo}
+                        src={theme === 'dark' ? logo_dark : logo}
                         alt="logo"
                         height="20"
                      />

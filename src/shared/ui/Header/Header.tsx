@@ -5,18 +5,20 @@ import logo_dark from '@/assets/devquizzer_logo_dark.svg';
 import styles from './Header.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IconButton, useMediaQuery } from '@mui/material';
+import { IconButton } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import Nav from '../Navigation/Nav';
+import ThemeSwitcher from '@/features/themeSwitcher/ui/ThemeSwitcher/ThemeSwitcher';
+import { useThemeStore } from '@/features/themeSwitcher/store/store';
 
 export default function Header() {
-   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+   const theme = useThemeStore((state) => state.resolvedMode);
 
    return (
       <header className={styles.header}>
          <Link href="/">
             <Image
-               src={prefersDarkMode ? logo_dark : logo}
+               src={theme === 'dark' ? logo_dark : logo}
                alt="LOGO"
                priority
             />
@@ -28,6 +30,7 @@ export default function Header() {
                   <GitHubIcon />
                </IconButton>
             </Link>
+            <ThemeSwitcher />
          </div>
       </header>
    );

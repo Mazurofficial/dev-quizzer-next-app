@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { ThemeProvider } from '@mui/material';
-import theme from '@/shared/theme';
 import { QueryProvider } from '@/shared/providers/QueryProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Header from '@/shared/ui/Header/Header';

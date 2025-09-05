@@ -1,34 +1,30 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
-import theme from '@/shared/theme';
+import { lightTheme, darkTheme } from '@/shared/theme';
 import type { Theme } from '@emotion/react';
+import {
+   useThemeStore,
+   useSystemThemeSync,
+} from '@/features/themeSwitcher/store/store';
+import { useEffect, useState, type ReactNode } from 'react';
 
 export default function ThemeProviderWrapper({
    children,
 }: {
-   children: React.ReactNode;
+   children: ReactNode;
 }) {
+   useSystemThemeSync();
+   const resolvedMode = useThemeStore((state) => state.resolvedMode);
    const [mounted, setMounted] = useState(false);
-   const [mode, setMode] = useState<'light' | 'dark'>('light');
 
    useEffect(() => {
-      const saved = window.localStorage.getItem('theme');
-      if (saved === 'dark' || saved === 'light') {
-         setMode(saved as 'light' | 'dark');
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-         setMode('dark');
-      }
       setMounted(true);
    }, []);
 
-   if (!mounted) return null; // Prevent hydration mismatch
+   if (!mounted) return null;
 
-   const muiTheme: Theme =
-      typeof theme === 'object' && 'light' in theme && 'dark' in theme
-         ? (theme[mode] as Theme)
-         : (theme as Theme);
+   const muiTheme: Theme = resolvedMode === 'dark' ? darkTheme : lightTheme;
 
    return (
       <ThemeProvider theme={muiTheme}>
