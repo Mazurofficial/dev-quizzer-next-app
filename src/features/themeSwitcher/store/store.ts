@@ -24,7 +24,7 @@ const getSystemTheme = (): 'light' | 'dark' => {
 
 export const useThemeStore = create<ThemeState>()(
    devtools(
-      (set, get) => {
+      (set) => {
          let initialMode: ThemeMode = 'system';
          if (typeof window !== 'undefined') {
             const saved = localStorage.getItem('theme');

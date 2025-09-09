@@ -2,8 +2,9 @@ import { Button, Container, Typography } from '@mui/material';
 import styles from './Styles.module.scss';
 
 import Step from './Step';
-import step1 from '@/assets/step1.png';
-import step2 from '@/assets/step2.png';
+import step1 from '@/assets/screenshot1.webp';
+import step2 from '@/assets/screenshot2.webp';
+import step3 from '@/assets/screenshot3.webp';
 import Link from 'next/link';
 
 export default function HowItWorks() {
@@ -34,7 +35,7 @@ export default function HowItWorks() {
             description="Show off your skills! Share your quiz results with friends and colleagues."
             direction="right"
             number={3}
-            image={step1}
+            image={step3}
          />
       </Container>
    );
