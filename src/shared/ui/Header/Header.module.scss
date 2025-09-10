@@ -12,6 +12,12 @@
         gap: 40px;
     }
 
+    .logo_link {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
     img {
         height: 40px;
         width: 334px;

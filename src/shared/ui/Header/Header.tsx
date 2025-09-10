@@ -17,7 +17,7 @@ export default function Header() {
 
    return (
       <header className={styles.header}>
-         <Link href="/">
+         <Link className={styles.logo_link} href="/">
             <Image
                src={theme === 'dark' ? logo_dark : logo}
                alt="LOGO"
@@ -27,7 +27,7 @@ export default function Header() {
          <div className={styles.rightPart}>
             <Nav />
             <Link href="https://github.com/Mazurofficial/dev-quizzer-next-app">
-               <IconButton color="primary">
+               <IconButton color="primary" aria-label="github link">
                   <GitHubIcon />
                </IconButton>
             </Link>

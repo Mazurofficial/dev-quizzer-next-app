@@ -13,7 +13,11 @@ export default function HeroSection() {
       <Container className={styles.hero} maxWidth="lg">
          <div className={styles.hero_image}>
             <Zoom in={true} timeout={800}>
-               <Image src={monkey} alt="Hero banner image" />
+               <Image
+                  src={monkey}
+                  alt="Hero banner image"
+                  sizes="(max-width: 500px) 300px, 545px"
+               />
             </Zoom>
          </div>
 
