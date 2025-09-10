@@ -12,7 +12,7 @@ export default function MobileNav() {
          <Nav />
          <ThemeSwitcher />
          <Link href="https://github.com/Mazurofficial/dev-quizzer-next-app">
-            <IconButton color="primary">
+            <IconButton color="primary" aria-label="github link">
                <GitHubIcon />
             </IconButton>
          </Link>

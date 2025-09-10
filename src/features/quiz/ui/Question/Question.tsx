@@ -1,5 +1,5 @@
 import styles from './Question.module.scss';
-import { Button, CircularProgress, Tooltip, Typography } from '@mui/material';
+import { Button, CircularProgress, Typography } from '@mui/material';
 import type {
    AnswerKeyT,
    AnswersT,
@@ -9,7 +9,6 @@ import type {
 import Answers from './Answers';
 import { useQuizStore } from '../../store/store';
 import { checkAnswer } from '@/utils/checkAnswer';
-import HelpIcon from '@mui/icons-material/Help';
 import AnswersMultiple from './AnswersMultiple';
 
 type QuestionProps = {
@@ -52,7 +51,6 @@ export default function Question({
       )
          .filter((key) => correctAnswers[key] === 'true')
          .map((key) => key.replace(/_correct$/, '') as keyof typeof texts);
-      //.charAt(0).toUpperCase()
 
       const correctTexts = correctKeys
          .map((key) => texts[key])
@@ -117,12 +115,7 @@ export default function Question({
 
    return (
       <div className={styles.question}>
-         <Typography component="h3">
-            {question.question}{' '}
-            <Tooltip title={question.explanation}>
-               <HelpIcon />
-            </Tooltip>
-         </Typography>
+         <Typography component="h3">{question.question} </Typography>
          {question.multiple_correct_answers === 'true' ? (
             <AnswersMultiple
                {...question.answers}
