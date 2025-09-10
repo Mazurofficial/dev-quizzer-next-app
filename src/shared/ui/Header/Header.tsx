@@ -10,6 +10,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import Nav from '../Navigation/Nav';
 import ThemeSwitcher from '@/features/themeSwitcher/ui/ThemeSwitcher/ThemeSwitcher';
 import { useThemeStore } from '@/features/themeSwitcher/store/store';
+import MobileDrawer from '../MobileDrawer/MobileDrawer';
 
 export default function Header() {
    const theme = useThemeStore((state) => state.resolvedMode);
@@ -32,6 +33,7 @@ export default function Header() {
             </Link>
             <ThemeSwitcher />
          </div>
+         <MobileDrawer />
       </header>
    );
 }

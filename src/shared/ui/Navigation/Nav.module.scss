@@ -3,3 +3,11 @@
     align-items: center;
     gap: 20px;
 }
+
+@media screen and (max-width: 1070px) {
+    .navigation {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}

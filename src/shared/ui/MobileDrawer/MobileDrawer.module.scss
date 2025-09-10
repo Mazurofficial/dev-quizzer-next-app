@@ -1,0 +1,16 @@
+.mobileDrawer {
+    display: none;
+}
+
+.mobileNav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+}
+
+@media screen and (max-width:1070px) {
+    .mobileDrawer {
+        display: block;
+    }
+}
